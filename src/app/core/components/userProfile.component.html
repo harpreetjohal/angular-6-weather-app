@@ -1,0 +1,53 @@
+<div class="container">
+    <form [formGroup]="userForm" class="needs-validation" novalidate>
+        <div class="form-group row">
+            <label for="userName" class="col-sm-2 col-form-label">{{"userName" | loc}}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="userName" formControlName="userName" [(ngModel)]="user.userName"
+                    required>
+                    <span *ngIf="validation.errorVisible(userForm,'userName')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <ul *ngIf="validation.errorVisible(userForm,'userName')" class="errorList">
+                        <li *ngFor="let error of validation.getMessages(userForm,'userName')">
+                            <span class="errorMessage">{{error}}</span>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="apiKey" class="col-sm-2 col-form-label">API ID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="apiKey" formControlName="apiKey" [(ngModel)]="user.apiKey"
+                    required>
+                    <span *ngIf="validation.errorVisible(userForm,'apiKey')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <ul *ngIf="validation.errorVisible(userForm,'apiKey')" class="errorList">
+                        <li *ngFor="let error of validation.getMessages(userForm,'apiKey')">
+                            <span class="errorMessage">{{error}}</span>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="serverCallsCount" class="col-sm-2 col-form-label">Server calls</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="serverCallsCount"
+                    [value]="user.serverCalls">
+                <small id="infoHelp" class="form-text text-muted">Number of server calls in the past 10 minutes.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="cacheExpiryDateTime" class="col-sm-2 col-form-label">Cache invalidation time (in minutes)</label>
+            <div class="col-sm-10">
+                <p-calendar [showIcon]="true" [(ngModel)]="user.cacheExpiryDateTime" formControlName="cacheExpiryDateTime" [showOnFocus]="false" dateFormat="dd.mm.yy" [timeOnly]="true"
+                    [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                </p-calendar>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="button" (click)="clearUserApiCache()" class="btn btn-primary mr-2">Clear API cache</button>
+                <button type="button" (click)="saveUserSettings()"  class="btn btn-primary mr-2">Confirm
+                </button> <button type="submit" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

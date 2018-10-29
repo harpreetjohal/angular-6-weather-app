@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header bg-primary text-white">
+       {{weather.date}} </div>
+    <div class="card-body">
+        <h5 class="card-title"><img [src]="weather.weatherIcon" [title]="weather.description" [alt]="weather.description">
+            {{weather.temperature}} <span *ngIf="weather.unit == 1"> °F</span>
+            <span *ngIf="weather.unit == 2"> °C</span>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{weather.description}}</h6>
+        <p class="card-text">{{"humidity" | loc}}: {{weather.humidity}} %</p>
+        <p class="card-text">{{"windSpeed" | loc}}: {{weather.windSpeed}} m/s</p>
+        <p class="card-text">{{"windDirection" | loc}}: {{weather.windDirectionTextualDescription}} ({{weather.windDirection}})</p>
+    </div>
+</div>

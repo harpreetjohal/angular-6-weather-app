@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h1>{{"forecastHeaderText" | loc}} <span *ngIf="weatherItems.length > 0">{{weatherItems[0].city}},
+                    {{weatherItems[0].country}} </span>
+            </h1>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary px-3" [class.btn-secondary]="!chartView" [attr.disabled]="chartView === false ? true : null"
+                (click)="changeView()">
+                List View
+            </button>
+            <button class="btn btn-primary px-3 ml-1" [class.btn-secondary]="chartView" [attr.disabled]="chartView === true ? true : null"
+                (click)="changeView()">
+                Chart View
+            </button>
+        </div>
+    </div>
+    <div class="row" *ngIf="!chartView" @zoomInAnimation>
+        <div class="col-sm-12">
+            <div class="col-sm-4 pull-left" style="margin-bottom:10px;" *ngFor="let weather of weatherItems"
+                @fadeInAnimation>
+                <weather-item [weather]="weather"></weather-item>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="chartView" @zoomInAnimation>
+        <div class="col-sm-12">
+            <p-chart type="line" [data]="chartData"></p-chart>
+        </div>
+    </div>
+</div>

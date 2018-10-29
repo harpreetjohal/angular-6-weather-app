@@ -1,0 +1,60 @@
+<div class="container">
+  <form [formGroup]="dashboardForm">
+    <div class="form-group row">
+      <label for="inputCity" class="col-sm-2 col-form-label">{{"cityName" | loc}}</label>
+      <div class="col-sm-4">
+        <input type="search" class="form-control" formControlName="cityName" [(ngModel)]="cityName" id="inputCity">
+        <span *ngIf="validation.errorVisible(dashboardForm,'cityName')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        <ul *ngIf="validation.errorVisible(dashboardForm,'cityName')" class="errorList">
+          <li *ngFor="let error of validation.getMessages(dashboardForm,'cityName')">
+            <span class="errorMessage">{{error}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-6">
+        <button type="submit" class="btn btn-primary" (click)="getCurrentWeather()">{{"search" | loc}}</button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-sm-10">
+      <h2>{{"dashBoardHeaderText" | loc}} {{currentWeather.city}}<span *ngIf="currentWeather.country">{{', '+ currentWeather.country}}</span>
+      </h2>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-primary px-3" [class.btn-secondary]="temperatureUnits === 2" [attr.disabled]="temperatureUnits === 2 ? true : null"
+        (click)="changeTemperatureUnits(2)">
+        °C
+      </button>
+      <button class="btn btn-primary px-3 ml-1" [class.btn-secondary]="temperatureUnits === 1 " [attr.disabled]="temperatureUnits === 1 ? true : null"
+        (click)="changeTemperatureUnits(1)">
+        °F
+      </button>
+    </div>
+  </div>
+  <div class="row mt-10">
+    <div class="col-sm-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">{{"weatherIcon" | loc}}</th>
+            <th scope="col">{{"temperatur" | loc}}</th>
+            <th scope="col">{{"humidity" | loc}}</th>
+            <th scope="col">{{"windSpeed" | loc}}</th>
+            <th scope="col">{{"windDirection" | loc}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row"><img [src]="currentWeather.weatherIcon" [title]="currentWeather.description" [alt]="currentWeather.description"></td>
+            <td>{{currentWeather.temperature}} <span *ngIf="temperatureUnits == 1"> °F</span>
+              <span *ngIf="temperatureUnits == 2"> °C</span></td>
+            <td>{{currentWeather.humidity}} %</td>
+            <td>{{currentWeather.windSpeed}} m/s</td>
+            <td>{{currentWeather.windDirectionTextualDescription}} ({{currentWeather.windDirection}})</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

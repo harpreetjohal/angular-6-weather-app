@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            Login
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{"welcome" | loc}}</h5>
+            <form [formGroup]="loginForm" id="loginForm" class="form-horizontal">
+                <div class="col-md-4">
+                    <label for="userName">Name</label>
+                    <input type="text" id="userName" [(ngModel)]="user.userName" formControlName="userName" class="form-control" />
+                    <span *ngIf="validation.errorVisible(loginForm,'userName')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <ul *ngIf="validation.errorVisible(loginForm,'userName')" class="errorList">
+                        <li *ngFor="let error of validation.getMessages(loginForm,'userName')">
+                            <span class="errorMessage">{{error}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-8 mb-5">
+                    <label for="apiKey">App Id</label>
+                    <input type="text" id="apiKey" [(ngModel)]="user.apiKey" formControlName="apiKey" class="form-control" />
+                    <span *ngIf="validation.errorVisible(loginForm,'apiKey')" class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <ul *ngIf="validation.errorVisible(loginForm,'apiKey')" class="errorList">
+                        <li *ngFor="let error of validation.getMessages(loginForm,'apiKey')">
+                            <span class="errorMessage">{{error}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" id="btnlogin" class="btn btn-primary" (click)="login()" value="Login" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
