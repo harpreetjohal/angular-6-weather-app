@@ -21,7 +21,7 @@ export class CacheService {
         key = key.toLowerCase();
         //keep only top 5
         this.keepTopResults();
-        if (this.loginService.loggedInUser.cacheExpiryDateTime) {
+        if (this.loginService.loggedInUser && this.loginService.loggedInUser.cacheExpiryDateTime) {
             let expirationDateTimeSettings = new Date(this.loginService.loggedInUser.cacheExpiryDateTime);
             this.cache.set(key, { value: value, expiry:expirationDateTimeSettings.setMilliseconds(0)});
         } else{
